@@ -13,9 +13,9 @@
             android:id="@+id/imageView2" android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="43dp" android:layout_marginEnd="43dp"/>
+            android:layout_marginStart="43dp" android:layout_marginEnd="43dp" tools:ignore="ContentDescription"/>
     <TextView
-            android:text="Who are You?"
+            android:text="@string/who_are_you"
             android:layout_width="292dp"
             android:layout_height="40dp"
             android:textSize="30sp"
@@ -32,9 +32,9 @@
             android:inputType="text" android:layout_marginTop="36dp"
             app:layout_constraintTop_toBottomOf="@+id/whoAreYouTextView" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.491"/>
+            app:layout_constraintHorizontal_bias="0.491" tools:ignore="Autofill,LabelFor"/>
     <Button
-            android:text="Set login"
+            android:text="@string/set_login"
             android:layout_width="183dp"
             android:layout_height="40dp"
             android:id="@+id/setLoginButton" app:layout_constraintStart_toStartOf="parent"
