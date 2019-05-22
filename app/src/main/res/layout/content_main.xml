@@ -11,33 +11,36 @@
             android:layout_width="282dp"
             android:layout_height="53dp"
             android:id="@+id/textView4"
-            android:layout_marginTop="48dp"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"/>
-    <android.support.v7.widget.RecyclerView
-            android:layout_width="403dp"
-            android:layout_height="0dp"
-            android:id="@+id/recyclerView" android:layout_marginTop="8dp" android:layout_marginBottom="113dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.538" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"/>
+            android:layout_marginStart="16dp" android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     <Button
             android:text="SEND"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/sendButton"
-            android:layout_marginTop="48dp"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"/>
-    <TextView
-            android:text="shoutbox"
+            android:id="@+id/buttonPost"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp" android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView5"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="8dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:id="@+id/progressBar" android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView4" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintHorizontal_bias="0.452"/>
+    <TextView
+            android:layout_width="391dp"
+            android:layout_height="455dp"
+            android:id="@+id/textView" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginBottom="48dp" app:layout_constraintBottom_toTopOf="@+id/textView4"/>
+    <Button
+            android:text="get"
+            android:layout_width="54dp"
+            android:layout_height="33dp"
+            android:id="@+id/buttonGet" android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonPost" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="32dp"/>
 </android.support.constraint.ConstraintLayout>
