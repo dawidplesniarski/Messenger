@@ -10,9 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import org.json.JSONArray
@@ -27,12 +25,14 @@ operator fun JSONArray.iterator(): Iterator<JSONObject> =
 val TIMEOUT = 10*1000
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    lateinit var listView : ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        listView = findViewById(R.id.listView)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -43,6 +43,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
 
         //--------------------------------------------------
+
+        val list: ArrayList<String> = ArrayList()
+
 
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         progressBar.visibility = View.INVISIBLE
@@ -58,10 +61,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 for (json in JSONArray(it)) {
                     println(json)
-                    val TV = findViewById<TextView>(R.id.textView)
-                    TV.append(json.toString())
+                    list.add(json.toString())
+                    //val TV = findViewById<TextView>(R.id.textView)
+                    //TV.append(json.toString())
                 }
+                listView.adapter = ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,list)
             }.execute("GET", "http://tgryl.pl/shoutbox/messages")
+
         }
 
         val buttonPost = findViewById<Button>(R.id.buttonPost)
@@ -189,8 +195,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     companion object {
         val TAG = "MainActivity"
     }
-
-
 
 
 }

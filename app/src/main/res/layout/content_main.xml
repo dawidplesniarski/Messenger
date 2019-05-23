@@ -30,12 +30,6 @@
             app:layout_constraintBottom_toTopOf="@+id/textView4" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintHorizontal_bias="0.452"/>
-    <TextView
-            android:layout_width="391dp"
-            android:layout_height="455dp"
-            android:id="@+id/textView" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginBottom="48dp" app:layout_constraintBottom_toTopOf="@+id/textView4"/>
     <Button
             android:text="get"
             android:layout_width="54dp"
@@ -43,4 +37,11 @@
             android:id="@+id/buttonGet" android:layout_marginBottom="12dp"
             app:layout_constraintBottom_toTopOf="@+id/buttonPost" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="32dp"/>
+    <ListView
+            android:layout_width="375dp"
+            android:layout_height="398dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.64" android:id="@+id/listView"/>
 </android.support.constraint.ConstraintLayout>
