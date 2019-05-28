@@ -62,8 +62,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 for (json in JSONArray(it)) {
                     println(json)
                     list.add(json.toString())
-                    //val TV = findViewById<TextView>(R.id.textView)
-                    //TV.append(json.toString())
                 }
                 listView.adapter = ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,list)
             }.execute("GET", "http://tgryl.pl/shoutbox/messages")
