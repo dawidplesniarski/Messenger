@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.*
@@ -70,26 +71,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val buttonPost = findViewById<Button>(R.id.buttonPost)
         buttonPost.setOnClickListener() {
+            if(editTextSend.text.isNotEmpty()) {
+                val json = JSONObject()
+                json.put("content", editTextSend.text)
+                json.put("login", User.login)
 
-            val json = JSONObject()
-            json.put("content", "CONTENT")
-            json.put("login", "LOGIN")
-            json.put("date", "DATE")
-            json.put("id", "ID")
-            json.put("done", false)
 
-            progressBar.visibility = View.VISIBLE
-            HttpTask {
-                progressBar.visibility = View.INVISIBLE
-                if (it == null) {
-                    println("connection error")
-                    return@HttpTask
-                }
-                println(it)
-            }.execute("POST", " http://tgryl.pl/shoutbox/messages", json.toString())
+                progressBar.visibility = View.VISIBLE
+                HttpTask {
+                    progressBar.visibility = View.INVISIBLE
+                    if (it == null) {
+                        println("connection error")
+                        return@HttpTask
+                    }
+                    println(it)
+                }.execute("POST", "http://tgryl.pl/shoutbox/message", json.toString())
+            }
         }
 
         //--------------------------------------------------
+
 
 
     }
