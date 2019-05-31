@@ -24,19 +24,12 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
     <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
             android:id="@+id/progressBar" android:layout_marginBottom="12dp"
             app:layout_constraintBottom_toTopOf="@+id/editTextSend" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="0.452"/>
-    <Button
-            android:text="get"
-            android:layout_width="54dp"
-            android:layout_height="33dp"
-            android:id="@+id/buttonGet" android:layout_marginBottom="12dp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonPost" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="32dp"/>
+            app:layout_constraintHorizontal_bias="0.498"/>
     <ListView
             android:layout_width="375dp"
             android:layout_height="459dp"
@@ -51,5 +44,5 @@
             app:layout_constraintTop_toBottomOf="@+id/listView" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/editTextSend"
             app:layout_constraintStart_toStartOf="@+id/editTextSend" android:layout_marginStart="16dp"
-            app:layout_constraintVertical_bias="0.538"/>
+            app:layout_constraintVertical_bias="1.0"/>
 </android.support.constraint.ConstraintLayout>

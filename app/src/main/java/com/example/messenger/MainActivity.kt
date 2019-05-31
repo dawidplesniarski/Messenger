@@ -27,13 +27,22 @@ val TIMEOUT = 10*1000
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var listView : ListView
+    val ID = arrayListOf<String>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        if(User.login == "")
+        {
+            val intent = Intent(this, Settings::class.java)
+            startActivity(intent)
+        }
+
         listView = findViewById(R.id.listView)
+        getMsg()
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -50,7 +59,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
         progressBar.visibility = View.INVISIBLE
-
+        /*
         val button = findViewById<Button>(R.id.buttonGet)
         button.setOnClickListener() {
             progressBar.visibility = View.VISIBLE
@@ -67,7 +76,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 listView.adapter = ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,list)
             }.execute("GET", "http://tgryl.pl/shoutbox/messages")
 
-        }
+        } */
 
         val buttonPost = findViewById<Button>(R.id.buttonPost)
         buttonPost.setOnClickListener() {
@@ -86,6 +95,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     }
                     println(it)
                 }.execute("POST", "http://tgryl.pl/shoutbox/message", json.toString())
+                getMsg()
+                editTextSend.setText("")
             }
         }
 
@@ -189,6 +200,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             super.onPostExecute(result)
             callback(result)
         }
+    }
+
+    fun getMsg(){
+        HttpTask {
+            if (it == null) {
+                println("connection error")
+                return@HttpTask
+            }
+            val msg = arrayListOf<String>()
+            ID.clear()
+            for (json in JSONArray(it)) {
+                println(json)
+                msg.add(json.getString("content")+" From: " + json.getString("login"))
+                ID.add(json.getString("id"))
+            }
+            val adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,msg)
+            listView.adapter = adapter
+        }.execute("GET", "http://tgryl.pl/shoutbox/messages")
     }
 
     companion object {
