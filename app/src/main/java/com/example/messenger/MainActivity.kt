@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //--------------------------------------------------
 
-        val list: ArrayList<String> = ArrayList()
+        //val list: ArrayList<String> = ArrayList()
 
 
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
@@ -80,46 +80,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val buttonPost = findViewById<Button>(R.id.buttonPost)
         buttonPost.setOnClickListener() {
-            if(editTextSend.text.isNotEmpty()) {
-                val json = JSONObject()
-                json.put("content", editTextSend.text)
-                json.put("login", User.login)
-
-
-                progressBar.visibility = View.VISIBLE
-                HttpTask {
-                    progressBar.visibility = View.INVISIBLE
-                    if (it == null) {
-                        println("connection error")
-                        return@HttpTask
-                    }
-                    println(it)
-                }.execute("POST", "http://tgryl.pl/shoutbox/message", json.toString())
-                getMsg()
-                editTextSend.setText("")
-            }
+            sendMSG()
         }
 
 
         listView.setOnItemClickListener { _, _, position, _ ->
-            removeMsg(ID[position])
+            replaceMsg(ID[position])
             getMsg()
             true
 
         }
 
         listView.setOnItemLongClickListener { _, _, position, _ ->
-            //Toast.makeText(this, "Position Clicked:"+" "+position,Toast.LENGTH_SHORT).show()
-            //Toast.makeText(this, ID.get(position),Toast.LENGTH_SHORT).show()
-            //removeMsg("5ced036c08208d03d637a03f")
-
-            //Toast.makeText(this, listViewMSG.getChildAt(position),Toast.LENGTH_SHORT).show()
-
             removeMsg(ID[position])
             getMsg()
             true
-
-
         }
 
         //--------------------------------------------------
@@ -156,7 +131,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_shoutbox -> {
-
+            val intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_settings -> {
                 val intent = Intent(this, Settings::class.java)
@@ -224,7 +200,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    fun getMsg(){
+    private fun getMsg(){
         HttpTask {
             if (it == null) {
                 println("connection error")
@@ -242,18 +218,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }.execute("GET", "http://tgryl.pl/shoutbox/messages")
     }
 
-    fun removeMsg(del: String){
-        HttpTask {
-            if (it == null) {
-                println("connection error")
-                return@HttpTask
-            }
-        }.execute("DELETE", "http://tgryl.pl/shoutbox/message/$del")
-        println("http://tgryl.pl/shoutbox/message/$del")
-    }
-
-    fun replaceMsg(del: String){
-
+    private fun replaceMsg(del: String){
         val json = JSONObject()
         json.put("content", editTextSend.text)
         json.put("login", User.login)
@@ -265,9 +230,41 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }.execute("PUT", "http://tgryl.pl/shoutbox/message/$del", json.toString())
         println("http://tgryl.pl/shoutbox/message/$del")
-
-
+        println("Login " + User.login)
+        println("Content " + editTextSend.text.toString())
     }
+
+    private fun removeMsg(del: String){
+        HttpTask {
+            if (it == null) {
+                println("connection error")
+                return@HttpTask
+            }
+        }.execute("DELETE", "http://tgryl.pl/shoutbox/message/$del")
+        println("http://tgryl.pl/shoutbox/message/$del")
+    }
+
+    private fun sendMSG(){
+        if(editTextSend.text.isNotEmpty()) {
+            val json = JSONObject()
+            json.put("content", editTextSend.text)
+            json.put("login", User.login)
+
+
+            progressBar.visibility = View.VISIBLE
+            HttpTask {
+                progressBar.visibility = View.INVISIBLE
+                if (it == null) {
+                    println("connection error")
+                    return@HttpTask
+                }
+                println(it)
+            }.execute("POST", "http://tgryl.pl/shoutbox/message", json.toString())
+            getMsg()
+            editTextSend.setText("")
+        }
+    }
+
 
     companion object {
         val TAG = "MainActivity"
