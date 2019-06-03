@@ -100,6 +100,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
+
+        listView.setOnItemClickListener { _, _, position, _ ->
+            removeMsg(ID[position])
+            getMsg()
+            true
+
+        }
+
+        listView.setOnItemLongClickListener { _, _, position, _ ->
+            //Toast.makeText(this, "Position Clicked:"+" "+position,Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, ID.get(position),Toast.LENGTH_SHORT).show()
+            //removeMsg("5ced036c08208d03d637a03f")
+
+            //Toast.makeText(this, listViewMSG.getChildAt(position),Toast.LENGTH_SHORT).show()
+
+            removeMsg(ID[position])
+            getMsg()
+            true
+
+
+        }
+
         //--------------------------------------------------
 
 
@@ -218,6 +240,33 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,msg)
             listView.adapter = adapter
         }.execute("GET", "http://tgryl.pl/shoutbox/messages")
+    }
+
+    fun removeMsg(del: String){
+        HttpTask {
+            if (it == null) {
+                println("connection error")
+                return@HttpTask
+            }
+        }.execute("DELETE", "http://tgryl.pl/shoutbox/message/$del")
+        println("http://tgryl.pl/shoutbox/message/$del")
+    }
+
+    fun replaceMsg(del: String){
+
+        val json = JSONObject()
+        json.put("content", editTextSend.text)
+        json.put("login", User.login)
+
+        HttpTask {
+            if (it == null) {
+                println("connection error")
+                return@HttpTask
+            }
+        }.execute("PUT", "http://tgryl.pl/shoutbox/message/$del", json.toString())
+        println("http://tgryl.pl/shoutbox/message/$del")
+
+
     }
 
     companion object {
